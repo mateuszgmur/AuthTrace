@@ -1,0 +1,501 @@
+{
+  "meta": {
+    "total_keystrokes": 613,
+    "total_chars": 452,
+    "session_duration": 109.329
+  },
+  "dwell_time": {
+    "mean": 0.104142,
+    "std": 0.039853,
+    "min": 0.014017,
+    "max": 0.837995,
+    "median": 0.100966,
+    "count": 520
+  },
+  "flight_time": {
+    "mean": 0.023715,
+    "std": 0.149533,
+    "min": -0.46893,
+    "max": 2.790002,
+    "median": -0.000878,
+    "count": 601
+  },
+  "iki": {
+    "mean": 0.135161,
+    "std": 0.137416,
+    "min": 0.005939,
+    "max": 2.898074,
+    "median": 0.113902,
+    "count": 609
+  },
+  "typing_speed": {
+    "wpm": 68.3,
+    "cps": 5.6916
+  },
+  "error_rate": 0.0575,
+  "avg_burst_len": 5.1628,
+  "shift_ratio": 0.0708,
+  "special_keys": {
+    "shift_left": {
+      "dwell": {
+        "mean": 0.519987,
+        "std": 0.449732,
+        "min": 0.201978,
+        "max": 0.837995,
+        "median": 0.519987,
+        "count": 2
+      },
+      "count": 32
+    },
+    "shift_right": {
+      "dwell": {
+        "mean": 0,
+        "std": 0,
+        "min": 0,
+        "max": 0,
+        "median": 0,
+        "count": 0
+      },
+      "count": 0
+    },
+    "space": {
+      "dwell": {
+        "mean": 0.105604,
+        "std": 0.014872,
+        "min": 0.065997,
+        "max": 0.153008,
+        "median": 0.106998,
+        "count": 102
+      },
+      "count": 102
+    },
+    "enter": {
+      "dwell": {
+        "mean": 0,
+        "std": 0,
+        "min": 0,
+        "max": 0,
+        "median": 0,
+        "count": 0
+      },
+      "count": 0
+    },
+    "backspace": {
+      "dwell": {
+        "mean": 0.081846,
+        "std": 0.019193,
+        "min": 0.04894,
+        "max": 0.110023,
+        "median": 0.08352,
+        "count": 26
+      },
+      "count": 26
+    },
+    "alt_left": {
+      "dwell": {
+        "mean": 0,
+        "std": 0,
+        "min": 0,
+        "max": 0,
+        "median": 0,
+        "count": 0
+      },
+      "count": 0
+    },
+    "alt_right": {
+      "dwell": {
+        "mean": 0,
+        "std": 0,
+        "min": 0,
+        "max": 0,
+        "median": 0,
+        "count": 0
+      },
+      "count": 0
+    }
+  },
+  "top_keys": {
+    "Key.space": 102,
+    "'e'": 51,
+    "'o'": 48,
+    "'a'": 36,
+    "'n'": 33,
+    "Key.shift": 32,
+    "'l'": 28,
+    "'t'": 27,
+    "'r'": 26,
+    "Key.backspace": 26,
+    "'h'": 23,
+    "'s'": 23,
+    "'i'": 22,
+    "'d'": 20,
+    "'w'": 14,
+    "'m'": 12,
+    "'u'": 11,
+    "'g'": 11,
+    "'y'": 11,
+    "'p'": 9
+  },
+  "bigram_stats": {
+    "Key.shift|Key.shift": {
+      "kk_mean": 0.080946,
+      "rk_mean": -0.201931,
+      "count": 20
+    },
+    "'t'|Key.space": {
+      "kk_mean": 0.089326,
+      "rk_mean": -0.038693,
+      "count": 5
+    },
+    "Key.space|'a'": {
+      "kk_mean": 0.146858,
+      "rk_mean": 0.039438,
+      "count": 13
+    },
+    "'a'|'n'": {
+      "kk_mean": 0.101451,
+      "rk_mean": -0.030762,
+      "count": 7
+    },
+    "'n'|'d'": {
+      "kk_mean": 0.063444,
+      "rk_mean": -0.03813,
+      "count": 7
+    },
+    "'d'|Key.space": {
+      "kk_mean": 0.089899,
+      "rk_mean": -0.014546,
+      "count": 11
+    },
+    "Key.space|'w'": {
+      "kk_mean": 0.165426,
+      "rk_mean": 0.059706,
+      "count": 10
+    },
+    "'w'|'i'": {
+      "kk_mean": 0.083674,
+      "rk_mean": -0.032648,
+      "count": 3
+    },
+    "'i'|'l'": {
+      "kk_mean": 0.188621,
+      "rk_mean": 0.109004,
+      "count": 3
+    },
+    "'l'|'l'": {
+      "kk_mean": 0.153521,
+      "rk_mean": 0.081006,
+      "count": 6
+    },
+    "'l'|'i'": {
+      "kk_mean": 0.169403,
+      "rk_mean": 0.102374,
+      "count": 3
+    },
+    "'i'|'n'": {
+      "kk_mean": 0.178283,
+      "rk_mean": 0.101715,
+      "count": 10
+    },
+    "'n'|'g'": {
+      "kk_mean": 0.047604,
+      "rk_mean": -0.047295,
+      "count": 5
+    },
+    "'g'|Key.space": {
+      "kk_mean": 0.082714,
+      "rk_mean": -0.041138,
+      "count": 5
+    },
+    "Key.space|'t'": {
+      "kk_mean": 0.128017,
+      "rk_mean": 0.026002,
+      "count": 10
+    },
+    "'t'|'o'": {
+      "kk_mean": 0.105293,
+      "rk_mean": -0.017666,
+      "count": 3
+    },
+    "'o'|Key.space": {
+      "kk_mean": 0.085402,
+      "rk_mean": -0.006822,
+      "count": 8
+    },
+    "'h'|'a'": {
+      "kk_mean": 0.146344,
+      "rk_mean": 0.039382,
+      "count": 5
+    },
+    "'t'|'e'": {
+      "kk_mean": 0.095414,
+      "rk_mean": -0.020204,
+      "count": 5
+    },
+    "'e'|'r'": {
+      "kk_mean": 0.12019,
+      "rk_mean": -0.014402,
+      "count": 7
+    },
+    "'r'|Key.space": {
+      "kk_mean": 0.077489,
+      "rk_mean": -0.030796,
+      "count": 7
+    },
+    "'y'|'o'": {
+      "kk_mean": 0.119593,
+      "rk_mean": -0.012014,
+      "count": 3
+    },
+    "'o'|'n'": {
+      "kk_mean": 0.188021,
+      "rk_mean": 0.112161,
+      "count": 7
+    },
+    "'n'|'e'": {
+      "kk_mean": 0.076444,
+      "rk_mean": -0.017371,
+      "count": 7
+    },
+    "'e'|Key.space": {
+      "kk_mean": 0.066858,
+      "rk_mean": -0.032566,
+      "count": 20
+    },
+    "'e'|'l'": {
+      "kk_mean": 0.102729,
+      "rk_mean": -0.015592,
+      "count": 3
+    },
+    "'s'|'e'": {
+      "kk_mean": 0.198589,
+      "rk_mean": 0.117001,
+      "count": 5
+    },
+    "'w'|'a'": {
+      "kk_mean": 0.075688,
+      "rk_mean": -0.057999,
+      "count": 3
+    },
+    "'e'|'d'": {
+      "kk_mean": 0.180515,
+      "rk_mean": 0.081993,
+      "count": 4
+    },
+    "','|Key.space": {
+      "kk_mean": 0.106069,
+      "rk_mean": 0.01253,
+      "count": 5
+    },
+    "Key.space|'s'": {
+      "kk_mean": 0.180218,
+      "rk_mean": 0.074956,
+      "count": 8
+    },
+    "'s'|'h'": {
+      "kk_mean": 0.151573,
+      "rk_mean": 0.03515,
+      "count": 5
+    },
+    "'h'|'e'": {
+      "kk_mean": 0.105432,
+      "rk_mean": -0.000568,
+      "count": 7
+    },
+    "Key.space|'o'": {
+      "kk_mean": 0.160855,
+      "rk_mean": 0.054326,
+      "count": 8
+    },
+    "'o'|'w'": {
+      "kk_mean": 0.121335,
+      "rk_mean": 0.047666,
+      "count": 3
+    },
+    "Key.backspace|Key.backspace": {
+      "kk_mean": 0.1634,
+      "rk_mean": 0.095098,
+      "count": 10
+    },
+    "'s'|Key.space": {
+      "kk_mean": 0.095157,
+      "rk_mean": -0.021074,
+      "count": 4
+    },
+    "'o'|'f'": {
+      "kk_mean": 0.086266,
+      "rk_mean": -0.000355,
+      "count": 3
+    },
+    "'n'|Key.space": {
+      "kk_mean": 0.08231,
+      "rk_mean": -0.009886,
+      "count": 5
+    },
+    "'o'|'r'": {
+      "kk_mean": 0.101882,
+      "rk_mean": 0.010992,
+      "count": 8
+    },
+    "'y'|Key.space": {
+      "kk_mean": 0.063734,
+      "rk_mean": -0.054111,
+      "count": 5
+    },
+    "'o'|'m'": {
+      "kk_mean": 0.196739,
+      "rk_mean": 0.113406,
+      "count": 3
+    },
+    "'p'|'a'": {
+      "kk_mean": 0.059983,
+      "rk_mean": -0.034985,
+      "count": 3
+    },
+    "'a'|'r'": {
+      "kk_mean": 0.101995,
+      "rk_mean": -0.017196,
+      "count": 6
+    },
+    "'r'|'e'": {
+      "kk_mean": 0.088607,
+      "rk_mean": -0.050968,
+      "count": 5
+    },
+    "'a'|Key.space": {
+      "kk_mean": 0.132276,
+      "rk_mean": -0.008828,
+      "count": 3
+    },
+    "Key.shift|'I'": {
+      "kk_mean": 0.116692,
+      "rk_mean": -0.086738,
+      "count": 7
+    },
+    "'I'|Key.space": {
+      "kk_mean": 0.116381,
+      "rk_mean": 0.034136,
+      "count": 4
+    },
+    "Key.space|'h'": {
+      "kk_mean": 0.294142,
+      "rk_mean": 0.19336,
+      "count": 5
+    },
+    "'h'|'o'": {
+      "kk_mean": 0.119554,
+      "rk_mean": 0.028713,
+      "count": 6
+    },
+    "'m'|'e'": {
+      "kk_mean": 0.086524,
+      "rk_mean": -0.010233,
+      "count": 4
+    },
+    "Key.space|'y'": {
+      "kk_mean": 0.195372,
+      "rk_mean": 0.094362,
+      "count": 4
+    },
+    "'o'|'u'": {
+      "kk_mean": 0.22443,
+      "rk_mean": 0.13623,
+      "count": 5
+    },
+    "'l'|Key.space": {
+      "kk_mean": 0.062722,
+      "rk_mean": -0.020116,
+      "count": 6
+    },
+    "Key.backspace|'o'": {
+      "kk_mean": 0.074795,
+      "rk_mean": -0.01986,
+      "count": 3
+    },
+    "'t'|'h'": {
+      "kk_mean": 0.144247,
+      "rk_mean": 0.015876,
+      "count": 8
+    },
+    "'w'|'o'": {
+      "kk_mean": 0.086789,
+      "rk_mean": -0.028467,
+      "count": 4
+    },
+    "'r'|'l'": {
+      "kk_mean": 0.119969,
+      "rk_mean": 0.008924,
+      "count": 3
+    },
+    "'l'|'d'": {
+      "kk_mean": 0.079278,
+      "rk_mean": -0.012253,
+      "count": 4
+    },
+    "'.'|Key.space": {
+      "kk_mean": 0.075147,
+      "rk_mean": -0.003091,
+      "count": 4
+    },
+    "Key.space|Key.shift": {
+      "kk_mean": 0.126873,
+      "rk_mean": 0.019379,
+      "count": 8
+    },
+    "'m'|'a'": {
+      "kk_mean": 0.090708,
+      "rk_mean": -0.0043,
+      "count": 4
+    },
+    "'a'|'g'": {
+      "kk_mean": 0.140312,
+      "rk_mean": 0.031596,
+      "count": 3
+    },
+    "Key.space|'n'": {
+      "kk_mean": 0.324618,
+      "rk_mean": 0.229116,
+      "count": 4
+    },
+    "'n'|'o'": {
+      "kk_mean": 0.197043,
+      "rk_mean": 0.12403,
+      "count": 3
+    },
+    "Key.space|'p'": {
+      "kk_mean": 0.160769,
+      "rk_mean": 0.046231,
+      "count": 6
+    },
+    "'f'|Key.space": {
+      "kk_mean": 0.128621,
+      "rk_mean": 0.025571,
+      "count": 3
+    },
+    "'e'|'e'": {
+      "kk_mean": 0.167637,
+      "rk_mean": 0.086021,
+      "count": 3
+    },
+    "Key.space|'m'": {
+      "kk_mean": 0.152745,
+      "rk_mean": 0.037736,
+      "count": 6
+    },
+    "'a'|'l'": {
+      "kk_mean": 0.080651,
+      "rk_mean": -0.037016,
+      "count": 3
+    },
+    "'l'|'e'": {
+      "kk_mean": 0.092953,
+      "rk_mean": -0.008688,
+      "count": 3
+    },
+    "Key.space|'l'": {
+      "kk_mean": 0.145433,
+      "rk_mean": 0.039093,
+      "count": 3
+    }
+  }
+}
