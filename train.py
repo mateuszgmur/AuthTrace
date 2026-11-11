@@ -3,12 +3,15 @@ Uruchom: python train.py --user mateusz
 """
 
 import json
+import sys
 import argparse
 import numpy as np
-from pathlib import Path
 from sklearn.svm import OneClassSVM
 from sklearn.preprocessing import StandardScaler
 import joblib
+
+from authtrace.config import DATA_DIR, MODELS_DIR
+from authtrace.profiles import ProfileStore
 
 # Zamiana features JSON -> wektor liczb dla ML
 def features_to_vector(f: dict) -> list:
@@ -43,14 +46,15 @@ def features_to_vector(f: dict) -> list:
 
 #ladowanie wszystkich sesji użytkownika
 def load_sessions(user: str) -> np.ndarray:
-    data_dir = Path("data") / user
+    data_dir = DATA_DIR / user
     vectors = []
 
-    session_files = sorted(data_dir.glob("features_session_*.json"))
+    # sortowanie numeryczne (1, 2, ..., 10), a nie alfabetyczne (1, 10, 2)
+    session_files = [data_dir / f"features_session_{i}.json" for i in ProfileStore().session_ids(user)]
 
     if not session_files:
         print(f"❌ Brak plików sesji w {data_dir}")
-        exit(1)
+        sys.exit(1)
 
     for path in session_files:
         with open(path, encoding="utf-8") as f:
@@ -98,14 +102,14 @@ def main():
         print("   Zbierz więcej sesji lub zmień nu na 0.2")
 
     # Zapis modelu i skalera
-    model_dir = Path("models") / args.user
+    model_dir = MODELS_DIR / args.user
     model_dir.mkdir(parents=True, exist_ok=True)
 
     joblib.dump(model,  model_dir / "model.pkl")
     joblib.dump(scaler, model_dir / "scaler.pkl")
 
     print(f"\n✅ Model zapisany w: {model_dir}/")
-    print("   Teraz uruchom: python verify.py --user mateusz")
+    print(f"   Teraz uruchom: python verify.py --user {args.user}")
 
 if __name__ == "__main__":
     main()

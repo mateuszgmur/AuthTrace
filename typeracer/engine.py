@@ -1,5 +1,5 @@
 import time
-import stats
+from . import stats
 
 
 class TypingTest:

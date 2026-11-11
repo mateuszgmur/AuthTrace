@@ -1,6 +1,6 @@
 import os
 import random
-import config
+from . import config
 
 # w przypadku braku TEXTS_FILE
 DEFAULT_TEXTS = [

@@ -1,16 +1,26 @@
-# This is a sample Python script.
+"""
+AuthTrace — główny punkt wejścia: TypeRacer z wbudowanym collectorem.
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+    python main.py                    # backend wybierany automatycznie
+    python main.py --backend evdev    # Linux/Wayland (wymaga grupy 'input')
+"""
+
+import argparse
+import tkinter as tk
+
+from typeracer.gui import TypeRacerApp
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def main():
+    p = argparse.ArgumentParser(description="AuthTrace — TypeRacer + collector")
+    p.add_argument("--backend", default="auto", choices=["auto", "pynput", "evdev"])
+    p.add_argument("--device", action="append", help="Ścieżka /dev/input/eventX (evdev)")
+    args = p.parse_args()
+
+    root = tk.Tk()
+    TypeRacerApp(root, backend=args.backend, devices=args.device)
+    root.mainloop()
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    main()

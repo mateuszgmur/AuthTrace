@@ -1,0 +1,5 @@
+pynput>=1.7        # Windows / macOS / Linux X11
+evdev>=1.6; sys_platform == "linux"   # Linux Wayland
+numpy
+scikit-learn
+joblib
