@@ -2,7 +2,7 @@
 Ekstrakcja cech z surowych zdarzeń klawiatury.
 
 Wejście: lista zdarzeń {"event": "press"|"release", "key": str, "t": float}
-Wyjście: słownik cech zapisywany jako features_session_N.json i czytany przez train.py.
+Wyjście: słownik cech zapisany w PostgreSQL i odczytany przez train.py.
 
 To jest JEDYNA implementacja ekstrakcji w projekcie (wcześniej collector.py
 i collectorwayland.py miały dwie różne wersje, co dawało niezgodne pliki cech).

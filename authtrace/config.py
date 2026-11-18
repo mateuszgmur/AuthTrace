@@ -2,11 +2,8 @@
 
 from pathlib import Path
 
-# Ścieżki liczone od katalogu projektu, a nie od bieżącego katalogu (CWD) —
-# dzięki temu collector, typeracer i train.py zapisują/czytają te same pliki
-# niezależnie od tego, skąd zostały uruchomione.
+# Ścieżki liczone od katalogu projektu, niezależnie od bieżącego katalogu.
 PROJECT_DIR = Path(__file__).resolve().parent.parent
-DATA_DIR = PROJECT_DIR / "data"      # data/<profil>/raw_session_N.json, features_session_N.json
 MODELS_DIR = PROJECT_DIR / "models"  # models/<profil>/model.pkl, scaler.pkl
 
 # Minimalna liczba zdarzeń (press + release), żeby sesja została zapisana

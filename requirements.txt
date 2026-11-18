@@ -3,3 +3,4 @@ evdev>=1.6; sys_platform == "linux"   # Linux Wayland
 numpy
 scikit-learn
 joblib
+psycopg[binary]>=3.1

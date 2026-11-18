@@ -7,5 +7,5 @@ Moduły:
     backends  – źródła zdarzeń klawiatury: pynput (Win/macOS/X11), evdev (Wayland)
     features  – zamiana surowych zdarzeń na wektor cech (jedna wersja dla wszystkich)
     session   – jedna sesja nagrywania: start / pauza / zapis
-    profiles  – profil = katalog data/<nazwa>
+    profiles  – profil i sesje użytkownika w PostgreSQL
 """

@@ -112,7 +112,7 @@ class TypeRacerApp:
         self._restart()                           # świeży test = czysty początek sesji
 
     def _start_session(self, name):
-        session = CollectorSession(name, backend=self.backend, devices=self.devices, store=self.store)
+        session = CollectorSession(name, backend=self.backend, devices=self.devices)
         session.pause()                           # nagrywanie włączy _sync_recording
         session.start()
         return session
@@ -183,7 +183,7 @@ class TypeRacerApp:
     def _on_close(self):
         result = self._end_session()
         if result:
-            print(f"💾 Zapisano sesję #{result.session_id}: {result.features_path}")
+            print(f"💾 Zapisano sesję o id={result.session_id} w bazie")
         self.root.destroy()
 
     # --------------------------------------------------------- STEROWANIE TESTEM

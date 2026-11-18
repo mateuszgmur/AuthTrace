@@ -14,7 +14,6 @@ Zatrzymanie sesji: ESC.
 """
 
 import argparse
-import json
 import sys
 import threading
 
@@ -23,6 +22,7 @@ from authtrace.backends import BackendError, list_devices
 from authtrace.features import extract_features
 from authtrace.profiles import ProfileStore
 from authtrace.session import CollectorSession, SessionTooShort
+from database import get_all_raw_data, get_user_id, update_features
 
 
 def print_summary(features: dict, path) -> None:
@@ -58,7 +58,7 @@ def record(args) -> int:
             esc_released.set()
 
     session = CollectorSession(args.user, backend=args.backend, devices=args.device,
-                               store=store, on_event=on_event)
+                               on_event=on_event)
     try:
         session.start()
     except BackendError as e:
@@ -78,31 +78,29 @@ def record(args) -> int:
         print("⚠️  Za mało danych. Pisz dłużej następnym razem.")
         return 1
     print(f"   Sesja nr:       {result.session_id}")
-    print_summary(result.features, result.features_path)
+    print_summary(result.features, f"session_id={result.session_id} w bazie")
     return 0
 
 
-def reextract(args) -> int:
-    """Przelicza cechy z surowych zdarzeń — ujednolica pliki zapisane różnymi wersjami collectora."""
+def reextract(args):
+    """Przelicza cechy z surowych zdarzeń zapisanych w bazie."""
     store = ProfileStore()
     users = [args.user] if args.user else store.names()
     count = 0
     for user in users:
-        for raw in sorted(store.path(user).glob("raw_session_*.json")):
-            feat = raw.with_name(raw.name.replace("raw_", "features_"))
-            with open(raw, encoding="utf-8") as f:
-                features = extract_features(json.load(f))
-            with open(feat, "w", encoding="utf-8") as f:
-                json.dump(features, f, indent=2, ensure_ascii=False)
+        user_id = get_user_id(user)
+        for session_id, raw_data in get_all_raw_data(user_id):
+            features = extract_features(raw_data)
+            update_features(user_id, session_id, features)
             count += 1
-            print(f"   ♻️  {user}/{feat.name}")
+            print(f"   ♻️  {user}/session_id={session_id}")
     print(f"\nPrzeliczono {count} sesji. Po tej operacji wytrenuj modele ponownie (train.py).")
     return 0
 
 
-def main() -> int:
+def main():
     p = argparse.ArgumentParser(description="AuthTrace — zbieranie danych z klawiatury (CLI)")
-    p.add_argument("--user", default=None, help="Nazwa profilu (katalog w data/)")
+    p.add_argument("--user", default=None, help="Nazwa profilu")
     p.add_argument("--session", type=int, default=None,
                    help="Numer sesji (domyślnie kolejny wolny)")
     p.add_argument("--backend", default="auto", choices=["auto", "pynput", "evdev"])
@@ -110,7 +108,7 @@ def main() -> int:
                    help="Ścieżka /dev/input/eventX (evdev; można podać kilka razy)")
     p.add_argument("--list-devices", action="store_true", help="Wypisz urządzenia evdev")
     p.add_argument("--reextract", action="store_true",
-                   help="Przelicz features_session_*.json z raw_session_*.json")
+                   help="Przelicz cechy z raw_json zapisanych w bazie")
     args = p.parse_args()
 
     if args.list_devices:

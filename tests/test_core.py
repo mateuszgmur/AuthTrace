@@ -2,10 +2,9 @@
 Testy rdzenia (bez klawiatury i bez GUI):  python -m unittest discover tests
 """
 
-import json
 import tempfile
 import unittest
-from pathlib import Path
+from unittest.mock import patch
 
 from authtrace.features import extract_features, remove_outliers_iqr
 from authtrace.profiles import ProfileStore
@@ -63,22 +62,6 @@ class TestFeatures(unittest.TestCase):
 
 
 class TestProfiles(unittest.TestCase):
-    def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory()
-        self.store = ProfileStore(Path(self.tmp.name) / "data", Path(self.tmp.name) / "models")
-
-    def tearDown(self):
-        self.tmp.cleanup()
-
-    def test_names_and_numbering(self):
-        self.store.create("ania")
-        d = self.store.path("ania")
-        for i in (1, 2, 10):
-            (d / f"features_session_{i}.json").write_text("{}")
-        self.assertEqual(self.store.names(), ["ania"])
-        self.assertEqual(self.store.session_ids("ania"), [1, 2, 10])
-        self.assertEqual(self.store.next_session_id("ania"), 11)
-
     def test_rejects_unsafe_names(self):
         for bad in ("../x", "a b", "", "a/b"):
             self.assertFalse(ProfileStore.is_valid_name(bad), bad)
@@ -88,28 +71,49 @@ class TestProfiles(unittest.TestCase):
 class TestSession(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
-        self.store = ProfileStore(Path(self.tmp.name) / "data", Path(self.tmp.name) / "models")
         self.backends = []
+        self.saved_numbers = set()
+
+        self.save_user = patch("authtrace.session.save_user", return_value=1)
+        self.save_user.start()
+
+        def fake_db_save(user_id, session_number, raw_data, features):
+            if session_number in self.saved_numbers:
+                raise FileExistsError
+            self.saved_numbers.add(session_number)
+            return session_number
+
+        self.db_save = patch("authtrace.session.db_save_session", side_effect=fake_db_save)
+        self.db_save.start()
+
+        next_number = iter((1, 2))
+        self.next_number = patch(
+            "database.get_next_session_number",
+            side_effect=lambda user_id: next(next_number),
+        )
+        self.next_number.start()
 
         def factory(p, r):
             b = FakeBackend(p, r)
             self.backends.append(b)
             return b
-        self.session = CollectorSession("ania", backend=factory, store=self.store)
+        self.session = CollectorSession("ania", backend=factory)
         self.session.start()
         self.kb = self.backends[0]
 
     def tearDown(self):
+        self.next_number.stop()
+        self.db_save.stop()
+        self.save_user.stop()
         self.tmp.cleanup()
 
-    def test_save_numbers_and_files(self):
+    def test_save_numbers_and_clear_buffer(self):
         type_text(self.kb, "to jest test sesji")
         r1 = self.session.save()
         type_text(self.kb, "druga sesja tekstu", t0=10)
         r2 = self.session.save()
         self.assertEqual((r1.session_id, r2.session_id), (1, 2))
-        raw = json.loads(r2.raw_path.read_text(encoding="utf-8"))
-        self.assertEqual(raw[0]["key"], "'d'")             # bufor wyczyszczony po 1. zapisie
+        self.assertEqual(self.session.get_event_count(), 0)
         self.assertTrue(self.kb.running)                    # save() nie zatrzymuje nasłuchu
 
     def test_pause_and_orphans(self):
@@ -117,7 +121,7 @@ class TestSession(unittest.TestCase):
         self.kb.press("Key.enter", 0.0)                     # wciśnięty w trakcie pauzy
         self.session.resume()
         self.kb.release("Key.enter", 0.05)                  # osierocony release -> odrzucony
-        self.assertEqual(self.session.event_count, 0)
+        self.assertEqual(self.session.get_event_count(), 0)
 
     def test_too_short(self):
         type_text(self.kb, "abc")

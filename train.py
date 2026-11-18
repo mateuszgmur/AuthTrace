@@ -2,7 +2,6 @@
 Uruchom: python train.py --user mateusz
 """
 
-import json
 import sys
 import argparse
 import numpy as np
@@ -10,8 +9,8 @@ from sklearn.svm import OneClassSVM
 from sklearn.preprocessing import StandardScaler
 import joblib
 
-from authtrace.config import DATA_DIR, MODELS_DIR
-from authtrace.profiles import ProfileStore
+from authtrace.config import MODELS_DIR
+from database import get_all_features, get_user_id
 
 # Zamiana features JSON -> wektor liczb dla ML
 def features_to_vector(f: dict) -> list:
@@ -45,23 +44,18 @@ def features_to_vector(f: dict) -> list:
     ]
 
 #ladowanie wszystkich sesji użytkownika
-def load_sessions(user: str) -> np.ndarray:
-    data_dir = DATA_DIR / user
+def load_sessions(user):
     vectors = []
-
-    # sortowanie numeryczne (1, 2, ..., 10), a nie alfabetyczne (1, 10, 2)
-    session_files = [data_dir / f"features_session_{i}.json" for i in ProfileStore().session_ids(user)]
-
-    if not session_files:
-        print(f"❌ Brak plików sesji w {data_dir}")
+    user_id = get_user_id(user)
+    sessions = get_all_features(user_id)
+    if not sessions:
+        print(f"❌ Brak sesji w bazie dla użytkownika {user}")
         sys.exit(1)
 
-    for path in session_files:
-        with open(path, encoding="utf-8") as f:
-            features = json.load(f)
+    for session_id, features in sessions:
         vec = features_to_vector(features)
         vectors.append(vec)
-        print(f"   ✅ Załadowano: {path.name}")
+        print(f"   ✅ Załadowano: session_id={session_id}")
 
     return np.array(vectors)
 

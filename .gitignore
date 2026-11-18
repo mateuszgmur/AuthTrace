@@ -10,6 +10,7 @@ env/
 # PyCharm
 .idea/
 *.iml
+.env
 
 # Test/cache/logs
 .pytest_cache/
@@ -17,6 +18,7 @@ env/
 htmlcov/
 .coverage
 *.log
+.tests/
 
 # OS
 Thumbs.db
